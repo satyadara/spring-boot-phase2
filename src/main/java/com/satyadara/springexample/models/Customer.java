@@ -2,6 +2,7 @@ package com.satyadara.springexample.models;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,7 +16,7 @@ public class Customer {
     private String name;
 
     @OneToMany(mappedBy = "customer")
-    private List<Address> address;
+    private List<Address> address = new ArrayList<>();
 
     public Customer() {
     }
@@ -42,5 +43,14 @@ public class Customer {
 
     public void setAddress(List<Address> address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", address=" + address +
+                '}';
     }
 }

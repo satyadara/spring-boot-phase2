@@ -33,14 +33,15 @@ public class CustomerServiceImpl implements CustomerService {
         address1.setDesc(address);
 
         //set customer
-        customer.setName(name);
         customer.setId(UUID.randomUUID().toString());
+        customer.setName(name);
 
         list.add(address1);
         customer.setAddress(list);
-        address1.setCustomer(customer);
+        customer.getAddress().get(0).setCustomer(customer);
 
-        //set customer address list
+        System.out.println(customer.toString());
+        System.out.println(address1.toString());
 
         return customerRespository.save(customer);
     }
