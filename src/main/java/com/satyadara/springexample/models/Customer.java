@@ -1,10 +1,8 @@
 package com.satyadara.springexample.models;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_customer")
@@ -12,18 +10,14 @@ public class Customer {
     @Id
     @Column(name = "id_customer")
     private String id;
+
     @Column(name = "name")
     private String name;
-    @Column(name = "address")
-    private String address;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Address> address;
 
     public Customer() {
-    }
-
-    public Customer(String id, String name, String address) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
     }
 
     public String getId() {
@@ -42,11 +36,11 @@ public class Customer {
         this.name = name;
     }
 
-    public String getAddress() {
+    public List<Address> getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(List<Address> address) {
         this.address = address;
     }
 }

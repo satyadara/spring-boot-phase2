@@ -1,11 +1,14 @@
 package com.satyadara.springexample.services;
 
+import com.satyadara.springexample.models.Address;
 import com.satyadara.springexample.models.Customer;
+import com.satyadara.springexample.repositories.AddressRepository;
 import com.satyadara.springexample.repositories.CustomerRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,12 +19,28 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     CustomerRespository customerRespository;
 
+    @Autowired
+    AddressRepository addressRepository;
+
     @Override
     public Customer register(String name, String address) {
         Customer customer = new Customer();
+        Address address1 = new Address();
+        List<Address> list = new ArrayList<>();
+
+        //set address
+        address1.setId(UUID.randomUUID().toString());
+        address1.setDesc(address);
+
+        //set customer
         customer.setName(name);
-        customer.setAddress(address);
         customer.setId(UUID.randomUUID().toString());
+
+        list.add(address1);
+        customer.setAddress(list);
+        address1.setCustomer(customer);
+
+        //set customer address list
 
         return customerRespository.save(customer);
     }
@@ -39,10 +58,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer update(String name, String address, String id) {
+    public Customer update(String name, List<Address> addresses, String id) {
         Customer customer = new Customer();
         customer.setName(name);
-        customer.setAddress(address);
+        customer.setAddress(addresses);
         customer.setId(id);
 
         return customerRespository.save(customer);
@@ -50,8 +69,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String delete(String id) {
-        customerRespository.delete(id);
-        return "mantap";
+        if (customerRespository.exists(id)) {
+            customerRespository.delete(id);
+            return "deleted";
+        }
+
+        return "failed";
     }
 
 

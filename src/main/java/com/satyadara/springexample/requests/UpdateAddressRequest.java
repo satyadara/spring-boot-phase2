@@ -4,18 +4,17 @@ import com.satyadara.springexample.models.Address;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.Size;
 import java.util.List;
 
-public class RegisterCustomerRequest {
+public class UpdateAddressRequest {
     @Length(max = 50)
     @NotBlank
     private String name;
 
     @NotBlank
-    private String address;
+    private List<Address> address;
 
-    public RegisterCustomerRequest() {
+    public UpdateAddressRequest() {
     }
 
     public String getName() {
@@ -26,11 +25,11 @@ public class RegisterCustomerRequest {
         this.name = name;
     }
 
-    public String getAddress() {
+    public List<Address> getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(List<Address> address) {
         this.address = address;
     }
 }

@@ -2,6 +2,7 @@ package com.satyadara.springexample.controllers;
 
 import com.satyadara.springexample.models.Customer;
 import com.satyadara.springexample.requests.RegisterCustomerRequest;
+import com.satyadara.springexample.requests.UpdateAddressRequest;
 import com.satyadara.springexample.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -51,7 +52,7 @@ public class CustomerController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public Customer update(@Valid @RequestBody RegisterCustomerRequest request, @PathVariable String id) {
+    public Customer update(@Valid @RequestBody UpdateAddressRequest request, @PathVariable String id) {
         return customerService.update(request.getName(), request.getAddress(), id);
     }
 
